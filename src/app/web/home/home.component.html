@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="card card-container">
+    <div *ngIf="this.totp.secret">
+
+      <h5 style="border-bottom: 1px solid #a8a8a8; padding-bottom: 5px;">Configuracion</h5>
+
+      <img [src]="totp.dataURL" alt="" class="img-thumbnail" style="display:block;margin:auto">
+
+      <p>Clave Secreta - {{totp.secreto || totp.tempSecreto}}</p>
+
+      <h2>Tipo autorizacion - Tiempo Transcurrido - TOTP</h2>
+
+      <button class="btn btn-lg btn-danger btn-block btn-signin" (click)="disahabilitadoTotp()">Disabilitado TOTP</button>
+    </div>
+    <div *ngIf="!totp.secreto">
+
+      <h5 style="border-bottom: 1px solid #a8a8a8; padding-bottom: 5px;">Configuracion  TOTP</h5>
+
+      <span *ngIf="!totp.tempSecreto">
+
+        <h3>Escanee el código QR o ingrese la clave secreta en Google Authenticator</h3>
+
+        <img [src]="totp.dataURL" alt="" class="img-thumbnail" style="display:block;margin:auto">
+
+        <p>Clave Secreta - {{totp.tempSecreto}}</p>
+
+        <h2>Tipo autorizacion - Tiempo Transcurrido - TOTP</h2>
+
+        <form class="form-group" (ngSubmit)="confirmacion()" #otpForm="ngForm">
+          <input name="authcode" type="number" #iauthcode="ngModel" class="form-control" maxlength="6"
+            placeholder="Introduzca su codigo Autorizacion" id="authcode" autocomplete="off" [(ngModel)]="authcode" required>
+          <br>
+          <button type="Submit" class="btn btn-lg btn-primary btn-block btn-signin"
+            [disabled]="iauthcode?.errors?.required">Habilitar TOTP</button>
+        </form>
+        <p class="text-danger" style="text-align:center;" *ngIf="errorMensaje">{{errorMensaje}}</p>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+    <input type="text" placeholder="Enter name to generate QR Code" [(ngModel)]="qrcodename"><br>
+    <button (click)="generateQRCode()">Generador de codigo QR</button>
+    <ngx-qrcode *ngIf="display" id="qrCodeImage" [qrc-element-type]="elementType" [qrc-value] = "value" [qrc-version]=5 [qrc-correction-level]="'L'">
+    </ngx-qrcode><br>
+  </div>
+  <div>
+    <ngx-qrcode qrc-element-type="url" [qrc-value]="linkCodeQr1" ></ngx-qrcode>
+    <ngx-qrcode qrc-element-type="url" [qrc-value]="linkCodeQr2" ></ngx-qrcode>
+    <ngx-qrcode qrc-element-type="url" [qrc-value]="linkCodeQr3" ></ngx-qrcode>
+
+  </div>

@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="card card-container">
+    <img id="profile-img" class="profile-img-card" src="assets/images/avatar_2x.png" />
+    <form class="form-signin" (ngSubmit)="loginUser()" #loginForm="ngForm">
+      <input type="text" id="user" class="form-control" name="user" autocomplete="off" #user="ngModel"
+        [(ngModel)]="userObject.user" placeholder="Username" title="Porfavor introduzca su usuario" required autofocus>
+      <input type="password" id="passw" class="form-control" name="passw" autocomplete="off" #passw="ngModel"
+        [(ngModel)]="userObject.passw" placeholder="Password" title="Porfavor introduzca su contraseña" required>
+        <input type="text" id="authcode" class="form-control" *ngIf="this.qrFlag" name="authcode" autocomplete="off"
+        #authcode="ngModel" [(ngModel)]="userObject.authcode" placeholder="Two-Factor Auth code"
+        title="Introduzca un codigo valido" required>
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
+        [disabled]="user?.errors?.required || passw?.errors?.required || (this.qrFlag && authcode?.errors?.required)">Registrase</button>
+      <p style="text-align:center;">Restablecer contraseña? <a [routerLink]="['/register']">Registrarse Aqui</a></p>
+      <p class="text-danger" style="text-align:center;" *ngIf="errorMensaje">{{errorMensaje}}</p>
+    </form>
+  </div>
+</div>
