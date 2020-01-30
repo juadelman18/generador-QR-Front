@@ -23,7 +23,7 @@ export class LoginService {
         'x-totp': userObj.authcode
       });
     }
-    return this._http.post("http://localhost:3000/login", { username: userObj.username, password: userObj.password }, { observe: 'response', headers: this.headerOptions });
+    return this._http.post("http://localhost:3000/login", { usuario: userObj.usuario, passw: userObj.passw }, { observe: 'response', headers: this.headerOptions });
   }
 
   setupAuth() {
@@ -31,7 +31,7 @@ export class LoginService {
   }
 
   registerUser(userObj: any) {
-    return this._http.post("http://localhost:3000/registro", { username: userObj.username, password: userObj.password }, { observe: "response" });
+    return this._http.post("http://localhost:3000/registro", { usuario: userObj.usuario, passw: userObj.passw }, { observe: "response" });
   }
 
   updateAuthStatus(value: boolean) {
@@ -56,11 +56,11 @@ export class LoginService {
   }
 
   deleteAuth() {
-    return this._http.delete("http://localhost:3000/totp/delete", { observe: 'response' });
+    return this._http.delete("http://localhost:3000/totp/setup", { observe: 'response' });
   }
 
-  verifyAuth(token: any) {
-    return this._http.post("http://localhost:3000/totp/verify", { token }, { observe: 'response' });
+  validarAuth(token: any) {
+    return this._http.post("http://localhost:3000/totp/validar", { token }, { observe: 'response' });
   }
 
 }

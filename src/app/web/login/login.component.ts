@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   errorMensaje: string = null;
   qrFlag: boolean = false;
   userObject = {
-    user: "", passw: "", authcode: ""
+    usuario: "", passw: "", authcode: ""
   };
 
   constructor(private _loginService: LoginService, private _router: Router) { }

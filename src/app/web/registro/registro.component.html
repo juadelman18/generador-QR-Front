@@ -2,16 +2,15 @@
   <div class="card card-container">
     <img id="profile-img" class="profile-img-card" src="assets/images/avatar_2x.png" />
     <form class="form-signin" (ngSubmit)="registroUsuario()" #registerForm="ngForm">
-      <input type="text" id="usuario" class="form-control" name="usuario" #usuario="ngModel" [(ngModel)]="userObject.user"
+      <input type="text" id="usuario" class="form-control" name="usuario" #usuario="ngModel" [(ngModel)]="userObject.usuario"
         placeholder="Usuario" title="Introduzca su registroUsuario" autocomplete="off" required autofocus>
       <input type="password" id="password" class="form-control" name="password" placeholder="Password"
-        title="Introduzca su contraseña" #password="ngModel" autocomplete="off" [(ngModel)]="userObject.passw" required>
+        title="Introduzca su contraseña" #passw="ngModel" autocomplete="off" [(ngModel)]="userObject.passw" required>
       <input type="password" id="confirmpass" class="form-control" name="confirmpass" placeholder="Confirmar Contraseña"
         title="Vuelva introducir su contraseña" #uconfirmpass="ngModel" autocomplete="off" [(ngModel)]="confirmaPassw"
         required>
       <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
-        [disabled]="(usuario?.errors?.required || password?.errors?.required || uconfirmpass?.errors?.required) || (password.value !== uconfirmpass.value)">Sign
-        up</button>
+        [disabled]="(usuario?.errors?.required || passw?.errors?.required || uconfirmpass?.errors?.required) || (passw.value !== uconfirmpass.value)">Registrarse</button>
         <p style="text-align:center;">Recordar contraseña? <a [routerLink]="['/login']">Login
           Aqui</a></p>
       <p class="text-success" style="text-align:center;" *ngIf="errorMensaje">{{errorMensaje}}</p>

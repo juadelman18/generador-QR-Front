@@ -11,7 +11,7 @@ export class RegistroComponent implements OnInit {
 
   errorMensaje: string = null;
   userObject = {
-    user: '',
+    usuario: '',
     passw: ''
   };
 
@@ -25,8 +25,8 @@ export class RegistroComponent implements OnInit {
   }
 
   registroUsuario() {
-    if (this.userObject.user.trim() !== '' && this.userObject.passw.trim() !== ''
-    && (this.userObject.user.trim() === this.userObject.passw.trim())) {
+    if (this.userObject.usuario.trim() !== '' && this.userObject.passw.trim() !== ''
+    && (this.userObject.usuario.trim() === this.userObject.passw.trim())) {
       this.loginService.registerUser(this.userObject).subscribe((data) => {
         const result = data.body;
         if (result['status']  === 200) {

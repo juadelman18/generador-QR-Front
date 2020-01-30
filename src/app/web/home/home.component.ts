@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   }
 
   confirmacion() {
-    this._loginService.verifyAuth(this.authcode).subscribe((data) => {
+    this._loginService.validarAuth(this.authcode).subscribe((data) => {
       const result = data.body;
       if (data.status === 200) {
         console.log(result);
