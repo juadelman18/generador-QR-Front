@@ -9,33 +9,36 @@ import { Router } from '@angular/router';
 })
 export class RegistroComponent implements OnInit {
 
-  errorMensaje: string = null;
+  errorMessage: string = null;
+
   userObject = {
-    usuario: '',
-    passw: ''
+    uname: '',
+    upass: ''
   };
 
-  confirmaPassw: string;
+  confirmPass: string;
 
-  constructor(private loginService: LoginService, private router: Router) {
-    this.confirmaPassw = '';
+  // tslint:disable-next-line:variable-name
+  constructor(private _loginService: LoginService, private _router: Router) {
+    this.confirmPass = '';
    }
 
   ngOnInit() {
   }
 
-  registroUsuario() {
-    if (this.userObject.usuario.trim() !== '' && this.userObject.passw.trim() !== ''
-    && (this.userObject.usuario.trim() === this.userObject.passw.trim())) {
-      this.loginService.registerUser(this.userObject).subscribe((data) => {
+  registerUser() {
+    // tslint:disable-next-line:curly
+    if (this.userObject.uname.trim() !== '' && this.userObject.upass.trim() !== '' && (this.userObject.upass.trim() === this.confirmPass))
+      this._loginService.registerUser(this.userObject).subscribe((data) => {
         const result = data.body;
-        if (result['status']  === 200) {
-          this.errorMensaje = result['message'];
+        // tslint:disable-next-line:no-string-literal
+        if (result['status'] === 200) {
+          // tslint:disable-next-line:no-string-literal
+          this.errorMessage = result['message'];
           setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 200);
+            this._router.navigate(['/login']);
+          }, 2000);
         }
-    });
-   }
- }
+      });
+  }
 }

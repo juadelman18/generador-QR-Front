@@ -9,32 +9,37 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  errorMensaje: string = null;
-  qrFlag: boolean = false;
+  tfaFlag: boolean;
   userObject = {
-    usuario: "", passw: "", authcode: ""
+    uname: '',
+    upass: '',
+    authcode : ''
   };
+  errorMessage: string = null;
 
-  constructor(private _loginService: LoginService, private _router: Router) { }
+  constructor(private _loginService: LoginService, private _router: Router) {
+    this.tfaFlag = false;
+  }
 
   ngOnInit() {
   }
 
   loginUser() {
     this._loginService.loginAuth(this.userObject).subscribe((data) => {
-      this.errorMensaje = null;
-      if (data.body['status'] === 200) {
+      const code = data.body;
+      this.errorMessage = null;
+      if (code['status'] === 200) {
         this._loginService.updateAuthStatus(true);
         this._router.navigateByUrl('/home');
       }
-      if (data.body['status'] === 206) {
-        this.qrFlag = true;
+      if (code['status'] === 206) {
+        this.tfaFlag = true;
       }
-      if (data.body['status'] === 403) {
-        this.errorMensaje = data.body['mensaje'];
+      if (code['status'] === 403) {
+        this.errorMessage = data.body['message'];
       }
-      if (data.body['status'] === 404) {
-        this.errorMensaje = data.body['mensaje'];
+      if (code['status'] === 404) {
+        this.errorMessage = data.body['message'];
       }
     });
   }

@@ -8,65 +8,64 @@ import { LoginService } from 'src/app/servicio/login.service';
 })
 export class HomeComponent implements OnInit {
 
-  totp: any = false;
-  authcode: string = "";
-  errorMensaje: string = null;
+  tfa: any = {};
+  authcode: string;
+  errorMessage: string = null;
 
   constructor(private _loginService: LoginService) {
-    this.getAuthDetalle();
+    this.getAuthDetails();
+    this.authcode = '';
   }
 
   ngOnInit() {
   }
 
-  getAuthDetalle() {
-   this._loginService.getAuth().subscribe((data) => {
+  getAuthDetails() {
+    this._loginService.getAuth().subscribe((data) => {
       const result = data.body;
-      if (data.status === 200) {
+      if (data['status'] === 200) {
         console.log(result);
         if (result == null) {
           this.setup();
         } else {
-          this.totp = result;
+          this.tfa = result;
         }
       }
-   });
+    });
   }
 
   setup() {
     this._loginService.setupAuth().subscribe((data) => {
       const result = data.body;
-      if (data.status === 200) {
+      if (data['status'] === 200) {
         console.log(result);
-        this.totp = result;
+        this.tfa = result;
       }
     });
   }
 
-  confirmacion() {
-    this._loginService.validarAuth(this.authcode).subscribe((data) => {
+  confirm() {
+    this._loginService.verifyAuth(this.authcode).subscribe((data) => {
       const result = data.body;
-      if (data.status === 200) {
+      if (result['status'] === 200) {
         console.log(result);
-        this.errorMensaje = null;
-        this.totp.secreto = this.totp.tempSecreto;
-        this.totp.tempSecreto = "";
+        this.errorMessage = null;
+        this.tfa.secret = this.tfa.tempSecret;
+        this.tfa.tempSecret = '';
       } else {
-        this.errorMensaje = result['message'];
+        this.errorMessage = result['message'];
       }
     });
   }
 
-  disahabilitadoTotp() {
+  disabledTfa() {
     this._loginService.deleteAuth().subscribe((data) => {
       const result = data.body;
-      if (data.status === 200) {
+      if (data['status'] === 200) {
         console.log(result);
-        this.authcode = "";
-        this.getAuthDetalle();
+        this.authcode = '';
+        this.getAuthDetails();
       }
     });
   }
-
-
 }
